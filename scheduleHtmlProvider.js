@@ -1,14 +1,17 @@
-function scheduleHtmlProvider(iframeContent = "", frameContent = "", dom = document) {
+async function scheduleHtmlProvider() {
+	await loadTool('AIScheduleTools');
 
-	// 获取最内层嵌套
-	let frmReport = document.getElementById("frmbody").contentWindow.document
-		.getElementById('frmDesk').contentWindow.document
-		.getElementById("frame_1").contentWindow.document
-		.getElementById("frmReport").contentWindow.document;
+	try {
+		let frmDesk = document.getElementById('frmDesk').contentWindow.document;
+		let frame_1 = frmDesk.getElementById("frame_1").contentWindow.document;
+		let frmReport = frame_1.getElementById("frmReport").contentWindow.document;
+		let tableElement = frmReport.getElementById("mytable");
 
-	// 获取课表 table
-	let tableElement = frmReport.getElementById("mytable");
+		return tableElement.innerHTML;
+	}
+	catch(e) {
+		await AIScheduleAlert("请点击主控-教学安排，然后点击导入课表");
+		return 'do not continue';
+	}
 
-	// 获取 html
-	return tableElement.innerHTML;
 }
