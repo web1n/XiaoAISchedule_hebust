@@ -56,5 +56,5 @@ function scheduleHtmlParser(html) {
 		})
 	})
 
-	return {courseInfos: result};
+	return result;
 }
